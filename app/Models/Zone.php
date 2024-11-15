@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Model;
 
 class Zone extends Model
