@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('space_user', function (Blueprint $table) {
             $table->id();
             $table->string('comment', 100);
-            $table->decimal('score', 3, 1);
+            $table->decimal('score', 3, 2);
             $table->enum('status', ['y', 'n']);
             $table->foreignId('space_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
