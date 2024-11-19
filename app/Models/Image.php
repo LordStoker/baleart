@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected function space_user(){
+    protected function comment(){
         return $this->belongsTo(Comment::class);
     }
 }
