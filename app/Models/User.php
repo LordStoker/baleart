@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-    protected function space_users()
+    protected function comments()
     {
         return $this->hasMany(Comment::class);
     }
