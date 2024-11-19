@@ -7,7 +7,7 @@ use App\Models\Image;
 use App\Models\Space;
 use Illuminate\Database\Eloquent\Model;
 
-class SpaceUser extends Model
+class Comment extends Model
 {
     public function images(){
         return $this->hasMany(Image::class);

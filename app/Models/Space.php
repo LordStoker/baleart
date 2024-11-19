@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Address;
+use App\Models\Comment;
 use App\Models\Service;
 use App\Models\Modality;
 use App\Models\SpaceType;
-use App\Models\SpaceUser;
 use Illuminate\Database\Eloquent\Model;
 
 class Space extends Model
@@ -31,8 +32,13 @@ class Space extends Model
         return $this->belongsTo(Address::class);
     }
     
-    protected function space_users()
+    protected function comments()
     {
-        return $this->hasMany(SpaceUser::class);
+        return $this->hasMany(Comment::class);
+    }
+
+    protected function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

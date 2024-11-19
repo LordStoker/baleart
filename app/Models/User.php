@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Rol;
+use App\Models\Space;
+use App\Models\Comment;
 use App\Models\SpaceUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,6 +57,11 @@ class User extends Authenticatable
 
     protected function space_users()
     {
-        return $this->hasMany(SpaceUser::class);
+        return $this->hasMany(Comment::class);
+    }
+
+    protected function spaces()
+    {
+        return $this->hasMany(Space::class);
     }
 }
