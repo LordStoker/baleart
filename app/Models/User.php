@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Rol;
+use App\Models\Role;
 use App\Models\Space;
 use App\Models\Comment;
 use Illuminate\Notifications\Notifiable;
@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     protected function rol()
     {
-        return $this->belongsTo(Rol::class);
+        return $this->belongsTo(Role::class);
     }
 
     protected function comments()
