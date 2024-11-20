@@ -29,7 +29,7 @@ class Space extends Model
 
     protected function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasOne(Address::class);
     }
     
     protected function comments()
