@@ -25,15 +25,8 @@ class RoleSeeder extends Seeder
         $roleGestor->save();
 
         //Rol de usuario Visitante
-
         $roleVisitante = new Role();
         $roleVisitante->name = 'Visitante';
         $roleVisitante->save();
-
-
-
-
-        
-        
     }
 }

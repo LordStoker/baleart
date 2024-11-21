@@ -7,8 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class IslandSeeder extends Seeder
-{
-    /**
+{/**
      * Run the database seeds.
      */
     public function run(): void
@@ -24,9 +23,9 @@ class IslandSeeder extends Seeder
         $islandMenorca->save();
 
         //Ibiza
-        $islandIbiza = new Island();
-        $islandIbiza->name = 'Eivissa';
-        $islandIbiza->save();
+        $islandEivissa = new Island();
+        $islandEivissa->name = 'Eivissa';
+        $islandEivissa->save();
 
         //Formentera
         $islandFormentera = new Island();
@@ -37,7 +36,5 @@ class IslandSeeder extends Seeder
         $islandCabrera = new Island();
         $islandCabrera->name = 'Cabrera';
         $islandCabrera->save();
-        
-        
     }
 }

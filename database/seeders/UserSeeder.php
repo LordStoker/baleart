@@ -40,9 +40,5 @@ class UserSeeder extends Seeder
             $gestorUser->role_id = 2;
             $gestorUser->save();
         }
-
-
-
-        
     }
 }

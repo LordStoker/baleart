@@ -14,8 +14,6 @@ class MunicipalitySeeder extends Seeder
      */
     public function run(): void
     {
-        //Los municipis vendrán también cargado con un json
-
         $jsonData = file_get_contents("C:\\temp\\baleart\\municipis.json");
         $municipalities = json_decode($jsonData, true);
         if ($jsonData === false || $municipalities === null) {
