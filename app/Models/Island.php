@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Island extends Model
 {
-    protected function municipalities(){
+    public function municipalities(){
         return $this->hasMany(Municipality::class);
     }
 }

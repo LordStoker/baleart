@@ -12,32 +12,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class Space extends Model
 {
-    protected function space_type()
+    public function space_type()
     {
         return $this->belongsTo(SpaceType::class);
     }
 
-    protected function modalities()
+    public function modalities()
     {
         return $this->belongsToMany(Modality::class);
     }
 
-    protected function services()
+    public function services()
     {
         return $this->belongsToMany(Service::class);
     }
 
-    protected function address()
+    public function address()
     {
         return $this->hasOne(Address::class);
     }
     
-    protected function comments()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    protected function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

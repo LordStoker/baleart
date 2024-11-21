@@ -9,17 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    protected function municipality()
+    public function municipality()
     {
         return $this->belongsTo(Municipality::class);
     }
 
-    protected function zone()    
+    public function zone()    
     {
         return $this->belongsTo(Zone::class);
     }
 
-    protected function space()
+    public function space()
     {
         return $this->hasOne(Space::class);
     }

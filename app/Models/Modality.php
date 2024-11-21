@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modality extends Model
 {
-    protected function spaces()
+    public function spaces()
     {
         return $this->belongsToMany(Space::class);
     }

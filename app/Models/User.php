@@ -20,7 +20,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    public $fillable = [
         'name',
         'email',
         'password',
@@ -31,7 +31,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
+    public $hidden = [
         'password',
         'remember_token',
     ];
@@ -41,7 +41,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    public function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
@@ -49,17 +49,17 @@ class User extends Authenticatable
         ];
     }
 
-    protected function rol()
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    protected function comments()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    protected function spaces()
+    public function spaces()
     {
         return $this->hasMany(Space::class);
     }
