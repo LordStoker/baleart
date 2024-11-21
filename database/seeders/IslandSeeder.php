@@ -25,7 +25,7 @@ class IslandSeeder extends Seeder
 
         //Ibiza
         $islandIbiza = new Island();
-        $islandIbiza->name = 'Ibiza';
+        $islandIbiza->name = 'Eivissa';
         $islandIbiza->save();
 
         //Formentera
