@@ -25,9 +25,9 @@ class MunicipalitySeeder extends Seeder
             $municipality = new Municipality();
             $municipality->name = $municipi['Nom'];
             $islandName = $municipi['Illa'];
-            $island = Island::where('name', $islandName)->first();
+            $island = Island::where('name', $islandName)->first(); //Buscamos la isla por nombre y lo guardamos, si existe le damos su ID a municipalities
             if ($island) {
-                $municipality->island_id = $island->id;
+                $municipality->island_id = $island->id; //Le asignamos el ID del nombre de la isla al id (FK) de municipios
             } else {
                 throw new \Exception("Isla no encontrada: " . $islandName);
             }
