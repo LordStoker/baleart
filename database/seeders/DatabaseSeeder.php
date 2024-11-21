@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ModalitySeeder::class);
         $this->call(SpaceTypesSeeder::class);
         $this->call(ServiceSeeder::class);
-        $this->call(SpaceSeeder::class);
+        //$this->call(SpaceSeeder::class);
 
     }
 }
