@@ -24,9 +24,9 @@ return new class extends Migration
             $table->enum('accessType', ['y', 'n', 'p']);
             $table->decimal('totalScore', 4, 2);
             $table->decimal('countScore', 4, 2);
-            $table->foreignId('addresses_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('space_types_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('users_id')->constrained()->onDelete('restrict')->onUpdate('restrict'); 
+            $table->foreignId('address_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('space_type_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('restrict'); 
             $table->timestamps();
         });
     }

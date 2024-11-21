@@ -8,6 +8,8 @@ namespace Database\Seeders;
 // use App\Models\Modality;
 // use App\Models\Municipality;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Space;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
@@ -26,7 +28,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {   
         // User::factory(10)->create();
-        
+
         //Seeders
 
         $this->call(RoleSeeder::class);
@@ -37,6 +39,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ModalitySeeder::class);
         $this->call(SpaceTypesSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(SpaceSeeder::class);
 
     }
 }
