@@ -82,7 +82,7 @@ class SpaceSeeder extends Seeder
             if ($spaceGestor) {
                 $space->user_id = $spaceGestor->id; 
             } else {
-                $space->user_id = 1;
+                $space->user_id = User::where('email', 'admin@admin.com')->first()->id;
             }
             $space->save();
         }
