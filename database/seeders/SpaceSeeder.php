@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Zone;
 use App\Models\Space;
+use App\Models\Address;
+use App\Models\SpaceType;
+use App\Models\Municipality;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -19,7 +24,7 @@ class SpaceSeeder extends Seeder
         if ($jsonData === false || $spaces === null) {
             throw new \Exception("Error al leer o procesar el JSON.");
         }
-        foreach ($spaces['espais']['espai'] as $espai) {
+        foreach ($spaces as $espai) {
             
             $tipusAccess = $espai['accessibilitat'];
             $tipusAccess = ($tipusAccess === "Sí") ? 'y' : (($tipusAccess === "No") ? 'n' : 'p');
@@ -33,19 +38,52 @@ class SpaceSeeder extends Seeder
             $space->email = $espai['email'];
             $space->phone = $espai['telefon'];
             $space->website = $espai['web'];
-            $space->accesType = $tipusAccess;
+            $space->accessType = $tipusAccess;
             $space->totalScore = 0;
             $space->countScore = 0;
 
-            // TO DO: USAR EL ID DE LA DIREECCIÓN PARA INSTANCIARLA y TERMINAR DE ASIGNAR VALORES A LOS ESPACIOS PARA QUE NO DÉ FALLO
-            //AL SER FK. INSTANCIARÉ LAS ADDRESSES EN EL MISMO RECORRIDO DEL JSON DE ESPACIOS 
+            //Instanciación de Address
+            //--------------------------------
 
-            $space->address_id = $espai['adreca'];
-            $space->space_type_id = $espai['tipus'];
-            $space->user_id = $espai['gestor'];
+            $address = new Address();
+            $address->name = $espai['adreca'];
 
+            //Obtención de ID de las FK Zone y Municipality para Address
+            $addressMunicipalityName = $espai['municipi'];
+            $addressMunicipality = Municipality::where('name', $addressMunicipalityName)->first();
+            if ($addressMunicipality) {
+                $address->municipality_id = $addressMunicipality->id; 
+            } else {
+                throw new \Exception("Municipio no encontrado: " . $addressMunicipalityName);
+            }
 
-            $space->modality_id = $espai['modalitat'];
+            $addressZoneName = $espai['zona'];
+            $addressZone = Zone::where('name', $addressZoneName)->first();
+            if ($addressZone) {
+                $address->zone_id = $addressZone->id; 
+            } else {
+                throw new \Exception("Zona no encontrada: " . $addressZoneName);
+            }
+            $address->save();
+            //--------------------------------
+
+            
+            //Continuación de Space
+            $space->address_id = $address->id;
+            $spaceTypeName = $espai['tipus'];
+            $spaceType = SpaceType::where('name', $spaceTypeName)->first();
+            if ($spaceType) {
+                $space->space_type_id = $spaceType->id; 
+            } else {
+                throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
+            }
+            $spaceGestorEmail = $espai['gestor'];
+            $spaceGestor = User::where('email', $spaceGestorEmail)->first();
+            if ($spaceGestor) {
+                $space->user_id = $spaceGestor->id; 
+            } else {
+                $space->user_id = 1;
+            }
             $space->save();
         }
     }

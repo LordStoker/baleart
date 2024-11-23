@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->foreignId('zones_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('municipalities_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('zone_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('municipality_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
     }

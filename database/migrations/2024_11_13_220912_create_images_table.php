@@ -15,7 +15,7 @@ return new class extends Migration
             
             $table->id();
             $table->string('url', 100);
-            $table->foreignId('comments_id')->constrained('comments')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('comment_id')->constrained('comments')->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
     }
