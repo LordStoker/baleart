@@ -16,7 +16,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ZoneSeeder;
-use Database\Seeders\SpaceSeeder;
+use Database\Seeders\Space_Address_PivotsSeeder;
 use Database\Seeders\IslandSeeder;
 use Database\Seeders\CommentSeeder;
 use Database\Seeders\ServiceSeeder;
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ModalitySeeder::class);
         $this->call(SpaceTypesSeeder::class);
         $this->call(ServiceSeeder::class);
-        $this->call(SpaceSeeder::class);
+        $this->call(Space_Address_PivotsSeeder::class);
         $this->call(CommentSeeder::class);
 
         //Factories

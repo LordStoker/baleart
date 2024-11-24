@@ -14,7 +14,7 @@ use App\Models\Municipality;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class SpaceSeeder extends Seeder
+class Space_Address_PivotsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,25 +28,6 @@ class SpaceSeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($spaces as $espai) {
-            
-            $tipusAccess = $espai['accessibilitat'];
-            $tipusAccess = ($tipusAccess === "Sí") ? 'y' : (($tipusAccess === "No") ? 'n' : 'p');
-
-            $space = new Space();
-            $space->name = $espai['nom'];
-            $space->regNumber = $espai['registre'];
-            $space->observation_CA = $espai['descripcions/cat'];
-            $space->observation_ES = $espai['descripcions/esp'];
-            $space->observation_EN = $espai['descripcions/eng'];
-            $space->email = $espai['email'];
-            $space->phone = $espai['telefon'];
-            $space->website = $espai['web'];
-            $space->accessType = $tipusAccess;
-            $space->totalScore = 0;
-            $space->countScore = 0;
-
-            //Instanciación de Address
-            //--------------------------------
 
             $address = new Address();
             $address->name = $espai['adreca'];
@@ -71,6 +52,27 @@ class SpaceSeeder extends Seeder
             // }
             $address->save();
             //--------------------------------
+            
+            $tipusAccess = $espai['accessibilitat'];
+            $tipusAccess = ($tipusAccess === "Sí") ? 'y' : (($tipusAccess === "No") ? 'n' : 'p');
+
+            $space = new Space();
+            $space->name = $espai['nom'];
+            $space->regNumber = $espai['registre'];
+            $space->observation_CA = $espai['descripcions/cat'];
+            $space->observation_ES = $espai['descripcions/esp'];
+            $space->observation_EN = $espai['descripcions/eng'];
+            $space->email = $espai['email'];
+            $space->phone = $espai['telefon'];
+            $space->website = $espai['web'];
+            $space->accessType = $tipusAccess;
+            $space->totalScore = 0;
+            $space->countScore = 0;
+
+            //Instanciación de Address
+            //--------------------------------
+
+
 
             
             //Continuación de Space
