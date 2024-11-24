@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'url' => $this->faker->imageUrl(),
+            'comment_id' => Comment::inRandomOrder()->first()->id
         ];
     }
 }

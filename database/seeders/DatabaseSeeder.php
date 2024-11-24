@@ -10,13 +10,15 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\User;
-use App\Models\Space;
+use App\Models\Image;
+
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ZoneSeeder;
 use Database\Seeders\SpaceSeeder;
 use Database\Seeders\IslandSeeder;
+use Database\Seeders\CommentSeeder;
 use Database\Seeders\ServiceSeeder;
 use Database\Seeders\ModalitySeeder;
 use Database\Seeders\SpaceTypesSeeder;
@@ -46,6 +48,7 @@ class DatabaseSeeder extends Seeder
 
         //Factories
         User::factory(100)->create();
+        Image::factory(100)->create();
 
     }
 }
