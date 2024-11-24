@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Zone;
 use App\Models\Space;
@@ -51,19 +52,21 @@ class SpaceSeeder extends Seeder
             //Obtención de ID de las FK Zone y Municipality para Address
             $addressMunicipalityName = $espai['municipi'];
             $addressMunicipality = Municipality::where('name', $addressMunicipalityName)->first();
-            if ($addressMunicipality) {
-                $address->municipality_id = $addressMunicipality->id; 
-            } else {
-                throw new \Exception("Municipio no encontrado: " . $addressMunicipalityName);
-            }
+            $addressMunicipality ? $address->municipality_id = $addressMunicipality->id : throw new \Exception("Tipo de espacio no encontrado: " . $addressMunicipalityName);
+            // if ($addressMunicipality) {
+            //     $address->municipality_id = $addressMunicipality->id; 
+            // } else {
+            //     throw new \Exception("Municipio no encontrado: " . $addressMunicipalityName);
+            // }
 
             $addressZoneName = $espai['zona'];
             $addressZone = Zone::where('name', $addressZoneName)->first();
-            if ($addressZone) {
-                $address->zone_id = $addressZone->id; 
-            } else {
-                throw new \Exception("Zona no encontrada: " . $addressZoneName);
-            }
+            $addressZone ? $address->zone_id = $addressZone->id : throw new \Exception("Tipo de espacio no encontrado: " . $addressZoneName);
+            // if ($addressZone) {
+            //     $address->zone_id = $addressZone->id; 
+            // } else {
+            //     throw new \Exception("Zona no encontrada: " . $addressZoneName);
+            // }
             $address->save();
             //--------------------------------
 
@@ -72,18 +75,21 @@ class SpaceSeeder extends Seeder
             $space->address_id = $address->id;
             $spaceTypeName = $espai['tipus'];
             $spaceType = SpaceType::where('name', $spaceTypeName)->first();
-            if ($spaceType) {
-                $space->space_type_id = $spaceType->id; 
-            } else {
-                throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
-            }
+            $spaceType ? $space->space_type_id = $spaceType->id : throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
+            //if ($spaceType != null) {
+            //     $space->space_type_id = $spaceType->id; 
+            // } else {
+            //     throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
+            // }
             $spaceGestorEmail = $espai['gestor'];
             $spaceGestor = User::where('email', $spaceGestorEmail)->first();
-            if ($spaceGestor) {
-                $space->user_id = $spaceGestor->id; 
-            } else {
-                $space->user_id = User::where('email', 'admin@admin.com')->first()->id;
-            }
+            $spaceGestor ? $space->user_id = $spaceGestor->id : $space->user_id = Role::where('name', 'Admin')->first()->id;
+
+            // if ($spaceGestor !== null) {
+            //     $space->user_id = $spaceGestor->id; 
+            // } else {
+            //     $space->user_id = User::where('email', 'admin@admin.com')->first()->id;
+            // }
             $space->save();
         }
     }
