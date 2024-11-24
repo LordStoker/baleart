@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SpaceTypesSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(SpaceSeeder::class);
+        $this->call(CommentSeeder::class);
 
         //Factories
         User::factory(100)->create();

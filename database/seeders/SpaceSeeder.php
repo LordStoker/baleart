@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Zone;
 use App\Models\Space;
 use App\Models\Address;
+use App\Models\Service;
+use App\Models\Modality;
 use App\Models\SpaceType;
 use App\Models\Municipality;
 use Illuminate\Database\Seeder;
