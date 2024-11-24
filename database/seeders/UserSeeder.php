@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         //User Admin
         $adminUser = new User();
         $adminUser->name = 'Admin';
-        $adminUser->lastName = 'Istrador';
+        $adminUser->last_name = 'Istrador';
         $adminUser->email = 'admin@admin.com';
         $adminUser->phone = '666666666';
         $adminUser->password = 'admin123';
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
         foreach ($users['usuaris']['usuari'] as $user) {
             $gestorUser = new User();
             $gestorUser->name = $user['nom'];
-            $gestorUser->lastName = $user['llinatges'];
+            $gestorUser->last_name = $user['llinatges'];
             $gestorUser->email = $user['email'];
             $gestorUser->phone = $user['telefon'];
             $gestorUser->password = $user['password'];

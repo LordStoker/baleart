@@ -9,11 +9,13 @@ namespace Database\Seeders;
 // use App\Models\Municipality;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\User;
 use App\Models\Space;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ZoneSeeder;
+use Database\Seeders\SpaceSeeder;
 use Database\Seeders\IslandSeeder;
 use Database\Seeders\ServiceSeeder;
 use Database\Seeders\ModalitySeeder;
@@ -40,6 +42,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SpaceTypesSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(SpaceSeeder::class);
+
+        //Factories
+        User::factory(100)->create();
 
     }
 }
