@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         $adminUser->email = 'admin@admin.com';
         $adminUser->phone = '666666666';
         $adminUser->password = 'admin123';
-        $adminUser->role_id = 1;
+        $adminUser->role_id = Role::where('name', 'Admin')->first()->id;
         $adminUser->save();
 
         //Users Gestores
