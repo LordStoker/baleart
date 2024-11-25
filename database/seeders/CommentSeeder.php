@@ -21,13 +21,13 @@ class CommentSeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($comments['comentaris']['comentari'] as $comentari) {
-            $comment = new Comment();
-            $comment->comment = $comentari['text'];
-            $comment->score = $comentari['puntuacio'];
-            $comment->status = ['n', 'y'][array_rand(['n', 'y'])];
-            $comment->space_id = Space::where('regNumber', $comentari['espai'])->first()->id;
-            $comment->user_id = User::where('email', $comentari['usuari'])->first()->id;
-            $comment->save();
+            Comment::create([
+                'comment' => $comentari['text'],
+                'score' => $comentari['puntuacio'],
+                'status' => ['n', 'y'][array_rand(['n', 'y'])],
+                'space_id' => Space::where('regNumber', $comentari['espai'])->first()->id,
+                'user_id' => User::where('email', $comentari['usuari'])->first()->id,
+            ]);
         }
     }
 }

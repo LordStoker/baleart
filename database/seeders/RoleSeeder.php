@@ -15,18 +15,19 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         //Rol de usuario Admin
-        $roleAdmin = new Role();
-        $roleAdmin->name = 'Admin';
-        $roleAdmin->save();
+        Role::create([
+            'name' => 'Admin'
+        ]);
 
         //Rol de usuario Gestor
-        $roleGestor = new Role();
-        $roleGestor->name = 'Gestor';
-        $roleGestor->save();
+        Role::create([
+            'name' => 'Gestor'
+        ]);
 
         //Rol de usuario Visitante
-        $roleVisitante = new Role();
-        $roleVisitante->name = 'Visitante';
-        $roleVisitante->save();
+        Role::create([
+            'name' => 'Visitante'
+        ]);
+
     }
 }

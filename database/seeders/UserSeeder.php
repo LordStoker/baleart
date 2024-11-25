@@ -15,14 +15,15 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //User Admin
-        $adminUser = new User();
-        $adminUser->name = 'Admin';
-        $adminUser->last_name = 'Istrador';
-        $adminUser->email = 'admin@admin.com';
-        $adminUser->phone = '666666666';
-        $adminUser->password = 'admin123';
-        $adminUser->role_id = Role::where('name', 'Admin')->first()->id;
-        $adminUser->save();
+        User::create([
+            'name' => 'Admin',
+            'last_name' => 'Istrador',
+            'email' => 'admin@admin.com',
+            'phone' => '666666666',
+            'password' => 'admin123',
+            'role_id' => Role::where('name', 'Admin')->first()->id
+        ]);
+
 
         //Users Gestores
 
@@ -32,14 +33,15 @@ class UserSeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($users['usuaris']['usuari'] as $user) {
-            $gestorUser = new User();
-            $gestorUser->name = $user['nom'];
-            $gestorUser->last_name = $user['llinatges'];
-            $gestorUser->email = $user['email'];
-            $gestorUser->phone = $user['telefon'];
-            $gestorUser->password = $user['password'];
-            $gestorUser->role_id = Role::where('name', 'Gestor')->first()->id;
-            $gestorUser->save();
+            User::Create([
+                'name' => $user['nom'],
+                'last_name' => $user['llinatges'],
+                'email' => $user['email'],
+                'phone' => $user['telefon'],
+                'password' => $user['password'],
+                'role_id' => Role::where('name', 'Gestor')->first()->id
+            ]);
+
         }
     }
 }

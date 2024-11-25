@@ -19,12 +19,12 @@ class ModalitySeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($modalities['modalitats']['modalitat'] as $modalitat) {
-            $modality = new Modality();
-            $modality->name = $modalitat['cat'];
-            $modality->description_CA = $modalitat['cat'];
-            $modality->description_ES = $modalitat['esp'];
-            $modality->description_EN = $modalitat['eng'];
-            $modality->save();
+            Modality::Create([
+                'name' => $modalitat['cat'],
+                'description_CA' => $modalitat['cat'],
+                'description_ES' => $modalitat['esp'],
+                'description_EN' => $modalitat['eng']
+            ]);
         }
     }
 }

@@ -19,12 +19,12 @@ class ServiceSeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($services['serveis']['servei'] as $servei) {
-            $service = new Service();
-            $service->name = $servei['cat'];
-            $service->description_CA = $servei['cat'];
-            $service->description_ES = $servei['esp'];
-            $service->description_EN = $servei['eng'];
-            $service->save();
+            Service::Create([
+                'name' => $servei['cat'],
+                'description_CA' => $servei['cat'],
+                'description_ES' => $servei['esp'],
+                'description_EN' => $servei['eng']
+            ]);
         }
 
     }

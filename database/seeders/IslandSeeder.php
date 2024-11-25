@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Island;
+use GuzzleHttp\Promise\Is;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -13,28 +14,29 @@ class IslandSeeder extends Seeder
     public function run(): void
     {
         //Mallorca
-        $islandMallorca = new Island();
-        $islandMallorca->name = 'Mallorca';
-        $islandMallorca->save();
+        Island::create([
+            'name' => 'Mallorca'
+        ]);
 
         //Menorca
-        $islandMenorca = new Island();
-        $islandMenorca->name = 'Menorca';
-        $islandMenorca->save();
+        Island::create([
+            'name' => 'Menorca'
+        ]);
 
         //Ibiza
-        $islandEivissa = new Island();
-        $islandEivissa->name = 'Eivissa';
-        $islandEivissa->save();
+        Island::create([
+            'name' => 'Eivissa'
+        ]);
 
         //Formentera
-        $islandFormentera = new Island();
-        $islandFormentera->name = 'Formentera';
-        $islandFormentera->save();
+        Island::create([
+            'name' => 'Formentera'
+        ]);
 
         //Cabrera
-        $islandCabrera = new Island();
-        $islandCabrera->name = 'Cabrera';
-        $islandCabrera->save();
+        Island::create([
+            'name' => 'Cabrera'
+        ]);
+
     }
 }
