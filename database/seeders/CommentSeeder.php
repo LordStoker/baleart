@@ -24,7 +24,7 @@ class CommentSeeder extends Seeder
             $comment = new Comment();
             $comment->comment = $comentari['text'];
             $comment->score = $comentari['puntuacio'];
-            $comment->status = 'n';
+            $comment->status = ['n', 'y'][array_rand(['n', 'y'])];
             $comment->space_id = Space::where('regNumber', $comentari['espai'])->first()->id;
             $comment->user_id = User::where('email', $comentari['usuari'])->first()->id;
             $comment->save();
