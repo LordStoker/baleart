@@ -12,6 +12,7 @@ use App\Models\Modality;
 use App\Models\SpaceType;
 use App\Models\Municipality;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class Space_Address_PivotsSeeder extends Seeder
@@ -29,6 +30,8 @@ class Space_Address_PivotsSeeder extends Seeder
         }
         foreach ($spaces as $espai) {
 
+            //Instanciación de Address
+            //--------------------------------
             $address = new Address();
             $address->name = $espai['adreca'];
 
@@ -53,8 +56,8 @@ class Space_Address_PivotsSeeder extends Seeder
             $address->save();
             //--------------------------------
             
-            $tipusAccess = $espai['accessibilitat'];
-            $tipusAccess = ($tipusAccess === "Sí") ? 'y' : (($tipusAccess === "No") ? 'n' : 'p');
+            
+            $tipusAccess = ($espai['accessibilitat'] === "Sí") ? 'y' : (($espai['accessibilitat'] === "No") ? 'n' : 'p');
 
             $space = new Space();
             $space->name = $espai['nom'];
@@ -68,33 +71,25 @@ class Space_Address_PivotsSeeder extends Seeder
             $space->accessType = $tipusAccess;
             $space->totalScore = 0;
             $space->countScore = 0;
-
-            //Instanciación de Address
-            //--------------------------------
-
-
-
-            
-            //Continuación de Space
             $space->address_id = $address->id;
             $spaceTypeName = $espai['tipus'];
             $spaceType = SpaceType::where('name', $spaceTypeName)->first();
             $spaceType ? $space->space_type_id = $spaceType->id : throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
-            //if ($spaceType != null) {
-            //     $space->space_type_id = $spaceType->id; 
-            // } else {
-            //     throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
-            // }
             $spaceGestorEmail = $espai['gestor'];
             $spaceGestor = User::where('email', $spaceGestorEmail)->first();
             $spaceGestor ? $space->user_id = $spaceGestor->id : $space->user_id = Role::where('name', 'Admin')->first()->id;
-
-            // if ($spaceGestor !== null) {
-            //     $space->user_id = $spaceGestor->id; 
-            // } else {
-            //     $space->user_id = User::where('email', 'admin@admin.com')->first()->id;
-            // }
             $space->save();
+
+            // JSON TABLAS PIVOT
+            $allModalities = (array_map('trim', explode(",", $espai['modalitats'])));
+            $modalities = Modality::whereIn('name', $allModalities)->get();
+            $space->modalities()->attach($modalities, ['created_at' => now(), 'updated_at' => now()]);
+            
+            $allServices = (array_map('trim', explode(",", $espai['serveis'])));
+            $services = Service::whereIn('name', $allServices)->get();
+            $space->services()->attach($services, ['created_at' => now(), 'updated_at' => now()]);
+
+            
         }
     }
 }

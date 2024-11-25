@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -37,7 +38,7 @@ class UserSeeder extends Seeder
             $gestorUser->email = $user['email'];
             $gestorUser->phone = $user['telefon'];
             $gestorUser->password = $user['password'];
-            $gestorUser->role_id = 2;
+            $gestorUser->role_id = Role::where('name', 'Gestor')->first()->id;
             $gestorUser->save();
         }
     }
