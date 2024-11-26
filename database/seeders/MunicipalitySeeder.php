@@ -20,18 +20,10 @@ class MunicipalitySeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($municipalities['municipis']['municipi'] as $municipi) {
-            $municipality = new Municipality();
-            $municipality->name = $municipi['Nom'];
-            //Buscamos la isla por nombre y lo guardamos, si existe le damos su ID a municipalities
-            $islandName = $municipi['Illa'];
-            $island = Island::where('name', $islandName)->first(); 
-            if ($island) {
-                //Le asignamos el ID del nombre de la isla al id (FK) de municipios
-                $municipality->island_id = $island->id; 
-            } else {
-                throw new \Exception("Isla no encontrada: " . $islandName);
-            }
-            $municipality->save();
+            Municipality::Create([
+                'name' => $municipi['Nom'],
+                'island_id' => Island::where('name', $municipi['Illa'])->first()->id
+            ]);
         }
     }
 }

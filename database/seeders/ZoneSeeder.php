@@ -20,9 +20,9 @@ class ZoneSeeder extends Seeder
         }
 
         foreach ($zones['zones']['zona'] as $zona) {
-            $zone = new Zone();
-            $zone->name = $zona['Nom'];
-            $zone->save();
+            Zone::create([
+                'name' => $zona['Nom']
+            ]);
         }
     }
 }

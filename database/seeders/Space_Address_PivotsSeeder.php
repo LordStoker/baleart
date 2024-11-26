@@ -32,53 +32,46 @@ class Space_Address_PivotsSeeder extends Seeder
 
             //Instanciación de Address
             //--------------------------------
-            $address = new Address();
-            $address->name = $espai['adreca'];
 
-            //Obtención de ID de las FK Zone y Municipality para Address
-            $addressMunicipalityName = $espai['municipi'];
-            $addressMunicipality = Municipality::where('name', $addressMunicipalityName)->first();
-            $addressMunicipality ? $address->municipality_id = $addressMunicipality->id : throw new \Exception("Tipo de espacio no encontrado: " . $addressMunicipalityName);
-            // if ($addressMunicipality) {
-            //     $address->municipality_id = $addressMunicipality->id; 
-            // } else {
-            //     throw new \Exception("Municipio no encontrado: " . $addressMunicipalityName);
-            // }
-
-            $addressZoneName = $espai['zona'];
-            $addressZone = Zone::where('name', $addressZoneName)->first();
-            $addressZone ? $address->zone_id = $addressZone->id : throw new \Exception("Tipo de espacio no encontrado: " . $addressZoneName);
-            // if ($addressZone) {
-            //     $address->zone_id = $addressZone->id; 
-            // } else {
-            //     throw new \Exception("Zona no encontrada: " . $addressZoneName);
-            // }
-            $address->save();
-            //--------------------------------
+            $address = Address::create([
+                'name' => $espai['adreca'],
+                'municipality_id' => Municipality::where('name', $espai['municipi'])->first()->id,
+                'zone_id' => Zone::where('name', $espai['zona'])->first()->id
+            ]);
+            //--------------------------------           
             
-            
+            //Instanciación de Space
             $tipusAccess = ($espai['accessibilitat'] === "Sí") ? 'y' : (($espai['accessibilitat'] === "No") ? 'n' : 'p');
+            
+            $spaceType = SpaceType::where('name', $espai['tipus'])->first();
+            if (!$spaceType) {
+                throw new \Exception("Tipo de espacio no encontrado: " . $espai['tipus']);
+            }
 
-            $space = new Space();
-            $space->name = $espai['nom'];
-            $space->regNumber = $espai['registre'];
-            $space->observation_CA = $espai['descripcions/cat'];
-            $space->observation_ES = $espai['descripcions/esp'];
-            $space->observation_EN = $espai['descripcions/eng'];
-            $space->email = $espai['email'];
-            $space->phone = $espai['telefon'];
-            $space->website = $espai['web'];
-            $space->accessType = $tipusAccess;
-            $space->totalScore = 0;
-            $space->countScore = 0;
-            $space->address_id = $address->id;
-            $spaceTypeName = $espai['tipus'];
-            $spaceType = SpaceType::where('name', $spaceTypeName)->first();
-            $spaceType ? $space->space_type_id = $spaceType->id : throw new \Exception("Tipo de espacio no encontrado: " . $spaceTypeName);
-            $spaceGestorEmail = $espai['gestor'];
-            $spaceGestor = User::where('email', $spaceGestorEmail)->first();
-            $spaceGestor ? $space->user_id = $spaceGestor->id : $space->user_id = Role::where('name', 'Admin')->first()->id;
-            $space->save();
+            $spaceGestor = User::where('email', $espai['gestor'])->first();
+            if (!$spaceGestor) {
+                $spaceGestor = Role::where('name', 'Admin')->first();
+                if (!$spaceGestor) {
+                    throw new \Exception("Gestor no encontrado.");
+                }
+            }
+            $space = Space::create([
+                'name' => $espai['nom'],
+                'regNumber' => $espai['registre'],
+                'observation_CA' => $espai['descripcions/cat'],
+                'observation_ES' => $espai['descripcions/esp'],
+                'observation_EN' => $espai['descripcions/eng'],
+                'email' => $espai['email'],
+                'phone' => $espai['telefon'],
+                'website' => $espai['web'],
+                'accessType' => $tipusAccess,
+                'totalScore' => 0,
+                'countScore' => 0,
+                'address_id' => $address->id,
+                'space_type_id' => $spaceType->id,
+                'user_id' => $spaceGestor->id
+            ]);
+            //--------------------------------
 
             // JSON TABLAS PIVOT
             $allModalities = (array_map('trim', explode(",", $espai['modalitats'])));

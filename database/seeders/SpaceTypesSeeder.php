@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Space;
 use App\Models\SpaceType;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,12 +20,12 @@ class SpaceTypesSeeder extends Seeder
             throw new \Exception("Error al leer o procesar el JSON.");
         }
         foreach ($spaceTypes['tipusespais']['tipus'] as $spaceTipus) {
-            $spaceType = new SpaceType();
-            $spaceType->name = $spaceTipus['cat'];
-            $spaceType->description_CA = $spaceTipus['cat'];
-            $spaceType->description_ES = $spaceTipus['esp'];
-            $spaceType->description_EN = $spaceTipus['eng'];
-            $spaceType->save();
+            SpaceType::Create([
+                'name' => $spaceTipus['cat'],
+                'description_CA' => $spaceTipus['cat'],
+                'description_ES' => $spaceTipus['esp'],
+                'description_EN' => $spaceTipus['eng']
+            ]);
         }
     }
 }
