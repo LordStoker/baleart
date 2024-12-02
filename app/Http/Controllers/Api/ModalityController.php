@@ -28,9 +28,9 @@ class ModalityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Modality $modality)
     {
-        //
+        return response()->json($modality);
     }
 
     /**

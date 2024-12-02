@@ -28,10 +28,11 @@ class ZoneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Zone $zone)
     {
-        //
+        return response()->json($zone);
     }
+
 
     /**
      * Update the specified resource in storage.

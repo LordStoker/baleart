@@ -28,9 +28,9 @@ class SpaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Space $space)
     {
-        //
+        return response()->json($space);
     }
 
     /**

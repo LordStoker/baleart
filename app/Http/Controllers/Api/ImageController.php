@@ -28,9 +28,9 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Image $image)
     {
-        //
+        return response()->json($image);
     }
 
     /**
