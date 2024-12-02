@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Island;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class IslandController extends Controller
 {
@@ -12,7 +13,8 @@ class IslandController extends Controller
      */
     public function index()
     {
-        //
+        $islands = Island::all();
+        return response()->json($islands);
     }
 
     /**

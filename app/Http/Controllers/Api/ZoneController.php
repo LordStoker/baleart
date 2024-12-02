@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Zone;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ZoneController extends Controller
 {
@@ -12,7 +13,8 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        //
+        $zones = Zone::all();
+        return response()->json($zones);
     }
 
     /**

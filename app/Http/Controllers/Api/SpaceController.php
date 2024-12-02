@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Space;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SpaceController extends Controller
 {
@@ -12,7 +13,8 @@ class SpaceController extends Controller
      */
     public function index()
     {
-        //
+        $spaces = Space::all();
+        return response()->json($spaces);
     }
 
     /**

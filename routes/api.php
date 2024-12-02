@@ -18,14 +18,14 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiresource('user', UserController::class);
-Route::apiresource('role', RoleController::class);
-Route::apiresource('space', SpaceController::class);
-Route::apiresource('comment', CommentController::class);
-Route::apiresource('address', AddressController::class);
-Route::apiresource('image', ImageController::class);
-Route::apiresource('island', IslandController::class);
-Route::apiresource('modality', ModalityController::class);
-Route::apiresource('service', ServiceController::class);
-Route::apiresource('spacetype', SpaceTypeController::class);
-Route::apiresource('zone', ZoneController::class);
+Route::apiresource('user', UserController::class)->except('create', 'edit');
+Route::apiresource('role', RoleController::class)->except('create', 'edit');;
+Route::apiresource('space', SpaceController::class)->except('create', 'edit');;
+Route::apiresource('comment', CommentController::class)->except('create', 'edit');;
+Route::apiresource('address', AddressController::class)->except('create', 'edit');;
+Route::apiresource('image', ImageController::class)->except('create', 'edit');;
+Route::apiresource('island', IslandController::class)->except('create', 'edit');;
+Route::apiresource('modality', ModalityController::class)->except('create', 'edit');;
+Route::apiresource('service', ServiceController::class)->except('create', 'edit');;
+Route::apiresource('spacetype', SpaceTypeController::class)->except('create', 'edit');;
+Route::apiresource('zone', ZoneController::class)->except('create', 'edit');;

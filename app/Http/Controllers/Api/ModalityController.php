@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Modality;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ModalityController extends Controller
 {
@@ -12,7 +13,8 @@ class ModalityController extends Controller
      */
     public function index()
     {
-        //
+        $modalities = Modality::all();
+        return response()->json($modalities);
     }
 
     /**
