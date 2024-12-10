@@ -18,6 +18,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+//El except va implícito en el apiresource, pero así lo dejamos clarificado en el código
 Route::apiresource('user', UserController::class)->except('create', 'edit');
 Route::apiresource('role', RoleController::class)->except('create', 'edit');;
 Route::apiresource('space', SpaceController::class)->except('create', 'edit');;
