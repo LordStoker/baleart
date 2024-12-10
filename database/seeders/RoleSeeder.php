@@ -14,20 +14,31 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        //Rol de usuario Admin
-        Role::create([
-            'name' => 'Admin'
-        ]);
+        $roles = [
+            'Admin',
+            'Gestor',
+            'Visitante'
+        ];
 
-        //Rol de usuario Gestor
-        Role::create([
-            'name' => 'Gestor'
-        ]);
+        foreach ($roles as $role) {
+            Role::create([
+                'name' => $role
+            ]);
+        }
+        // //Rol de usuario Admin
+        // Role::create([
+        //     'name' => 'Admin'
+        // ]);
 
-        //Rol de usuario Visitante
-        Role::create([
-            'name' => 'Visitante'
-        ]);
+        // //Rol de usuario Gestor
+        // Role::create([
+        //     'name' => 'Gestor'
+        // ]);
+
+        // //Rol de usuario Visitante
+        // Role::create([
+        //     'name' => 'Visitante'
+        // ]);
 
     }
 }

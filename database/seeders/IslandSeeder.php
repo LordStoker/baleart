@@ -13,30 +13,22 @@ class IslandSeeder extends Seeder
      */
     public function run(): void
     {
-        //Mallorca
-        Island::create([
-            'name' => 'Mallorca'
-        ]);
+        $islands = [
+            'Mallorca',
+            'Menorca',
+            'Eivissa',
+            'Formentera',
+            'Cabrera'
+        ];
 
-        //Menorca
-        Island::create([
-            'name' => 'Menorca'
-        ]);
-
-        //Ibiza
-        Island::create([
-            'name' => 'Eivissa'
-        ]);
-
-        //Formentera
-        Island::create([
-            'name' => 'Formentera'
-        ]);
-
-        //Cabrera
-        Island::create([
-            'name' => 'Cabrera'
-        ]);
+        foreach ($islands as $island) {
+            Island::create([
+                'name' => $island
+            ]);
+            // $newIsland = new Island();
+            // $newIsland->name = $island;
+            // $newIsland->save();
+        }
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Space;
 use App\Models\Comment;
@@ -26,7 +27,10 @@ class CommentSeeder extends Seeder
                 'score' => $comentari['puntuacio'],
                 'status' => ['n', 'y'][array_rand(['n', 'y'])],
                 'space_id' => Space::where('regNumber', $comentari['espai'])->first()->id,
-                'user_id' => User::where('email', $comentari['usuari'])->first()->id,
+                'user_id' => User::where('email', $comentari['usuari'])->first()->id,                
+                'created_at' => Carbon::createFromFormat('d-m-Y H:i:s', $comentari['data'] . ' ' . $comentari['hora'])->toDateTimeString(),
+                'updated_at' => Carbon::createFromFormat('d-m-Y H:i:s', $comentari['data'] . ' ' . $comentari['hora'])->toDateTimeString()
+                
             ]);
         }
     }
