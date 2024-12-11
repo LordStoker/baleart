@@ -14,6 +14,8 @@ class SpaceController extends Controller
     public function index()
     {
         $spaces = Space::all();
+        $spaces = Space::with(['user', 'comments', 'modalities', 'services', 'address'])->get(); //Se indican las relaciones de la clase que usamos
+                                                                                                // para ver los datos relacionados
         return response()->json($spaces);
     }
 
