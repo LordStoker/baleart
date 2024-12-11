@@ -20,7 +20,7 @@ class SpaceController extends Controller
 
 
         // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
-         $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->paginate(3);  // post amb les taules relacionades, paginada
+         $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->paginate(1);  // post amb les taules relacionades, paginada
         return response()->json($spaces);
     }
 
@@ -37,6 +37,7 @@ class SpaceController extends Controller
      */
     public function show(Space $space)
     {
+        $space->load('address', 'modalities', 'services', 'space_type', 'comments', 'comments.images', 'user');
         return response()->json($space);
     }
 
@@ -45,9 +46,8 @@ class SpaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //PENDIENTE REVISAR
-        $space = Space::findOrFail($id);
-        $space->update($request->only('email'));
+        $space = Space::where('email', $request->input('email'))->firstOrFail();
+        $space->update($request->all());
         return response()->json($space);
     }
 
