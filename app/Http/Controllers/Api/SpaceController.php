@@ -13,9 +13,14 @@ class SpaceController extends Controller
      */
     public function index()
     {
-        $spaces = Space::all();
-        $spaces = Space::with(['user', 'comments', 'modalities', 'services', 'address'])->get(); //Se indican las relaciones de la clase que usamos
+        //$spaces = Space::all();
+        //$spaces = Space::with(['user', 'comments', 'modalities', 'services', 'address'])->get(); //Se indican las relaciones de la clase que usamos
                                                                                                 // para ver los datos relacionados
+        // $spaces = Space::paginate(3);  // crea una sortida amb paginació
+
+
+        // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
+         $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->paginate(3);  // post amb les taules relacionades, paginada
         return response()->json($spaces);
     }
 
@@ -40,7 +45,10 @@ class SpaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //PENDIENTE REVISAR
+        $space = Space::findOrFail($id);
+        $space->update($request->only('email'));
+        return response()->json($space);
     }
 
     /**
