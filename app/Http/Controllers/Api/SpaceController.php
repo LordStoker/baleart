@@ -20,7 +20,7 @@ class SpaceController extends Controller
 
 
         // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
-         $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->paginate(1);  // post amb les taules relacionades, paginada
+         $spaces = Space::with(["user", "modalities", "comments", "comments.images", "address"])->paginate(1);  // post amb les taules relacionades, paginada
         return response()->json($spaces);
     }
 
