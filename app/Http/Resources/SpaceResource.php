@@ -24,7 +24,7 @@ class SpaceResource extends JsonResource
             'Detalles_CA' => $this->observation_CA,
             'Detalles_ES' => $this->observation_ES,
             'Detalles_EN' => $this->observation_EN,
-            'email' => $this->email,
+            'Email' => $this->email,
             'Teléfono' => $this->phone,
             'Web' => $this->website,
             'Acceso para minusválidos' => ($this->accessType === "y" ? "Disponible" : ($this->accessType === "n" ? "No disponible" : "Parcialmente")),
@@ -32,7 +32,7 @@ class SpaceResource extends JsonResource
             'Nº de votaciones' => $this->countScore,
             'Dirección' => new AddressResource($this->whenLoaded('address')),
             // 'Tipo de espacio' => $this->space_type->name,
-            // 'Usuario Gestor' => $this->user->name,
+            'Usuario Gestor' => new UserResource($this->whenLoaded('user')),
             'Fecha de creación' => $this->created_at->format('Y-m-d H:i:s'),
             'Última actualización' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
