@@ -33,6 +33,7 @@ class SpaceResource extends JsonResource
             'Dirección' => new AddressResource($this->whenLoaded('address')),
             // 'Tipo de espacio' => $this->space_type->name,
             'Usuario Gestor' => new UserResource($this->whenLoaded('user')),
+            'Modalidades' => $this->modalities->pluck('name'),
             'Fecha de creación' => $this->created_at->format('Y-m-d H:i:s'),
             'Última actualización' => $this->updated_at->format('Y-m-d H:i:s'),
         ];

@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'Apellidos' => $this->last_name,
             'Email' => $this->email,
             'Teléfono' => $this->phone,
-            'Rol' => $this->role->name,
+            'Rol' => new RoleResource($this->load('role')),
             'Fecha de creación' => $this->created_at->format('Y-m-d H:i:s'),
             'Última actualización' => $this->updated_at->format('Y-m-d H:i:s'),
         ];

@@ -16,10 +16,8 @@ class SpaceController extends Controller
     {
         //$spaces = Space::all();
         //$spaces = Space::with(['user', 'comments', 'modalities', 'services', 'address'])->get(); //Se indican las relaciones de la clase que usamos
-                                                                                                // para ver los datos relacionados
+                                                                                                    // para ver los datos relacionados
         // $spaces = Space::paginate(3);  // crea una sortida amb paginació
-
-
         // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
         $spaces = Space::with(["address",  "modalities", "services", "space_type", "comments", "comments.images", "user"])->get();  // post amb les taules relacionades, paginada
         return (SpaceResource::collection($spaces));

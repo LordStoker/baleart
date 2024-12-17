@@ -21,7 +21,7 @@ class AddressResource extends JsonResource
         return[
             'Identificador' => $this->id,
             'Domicilio' => $this->name,
-            'Zona' => new ZoneResource($this->whenLoaded('zone')),
+            'Zona' => new ZoneResource($this->load('zone')),
             'Municipio' => new MunicipalityResource($this->whenLoaded('municipality')),
             'Fecha de creación' => $this->created_at->format('Y-m-d H:i:s'),
             'Última actualización' => $this->updated_at->format('Y-m-d H:i:s'),

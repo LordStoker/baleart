@@ -20,7 +20,7 @@ class MunicipalityResource extends JsonResource
         return[
             'Identificador' => $this->id,
             'Municipio' => $this->name,
-            'Isla' => new IslandResource($this->whenLoaded('island')),
+            'Isla' => new IslandResource($this->load('island')),
             'Fecha de creación' => $this->created_at->format('Y-m-d H:i:s'),
             'Última actualización' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
