@@ -21,13 +21,13 @@ Route::get('/user', function (Request $request) {
 
 //El except va implícito en el apiresource, pero así lo dejamos clarificado en el código
 Route::apiresource('user', UserController::class)->except('create', 'edit');
-Route::apiresource('role', RoleController::class)->except('create', 'edit');;
-Route::apiresource('space', SpaceController::class)->except('create', 'edit');;
-Route::apiresource('comment', CommentController::class)->except('create', 'edit');;
-Route::apiresource('address', AddressController::class)->except('create', 'edit');;
-Route::apiresource('image', ImageController::class)->except('create', 'edit');;
-Route::apiresource('island', IslandController::class)->except('create', 'edit');;
-Route::apiresource('modality', ModalityController::class)->except('create', 'edit');;
-Route::apiresource('service', ServiceController::class)->except('create', 'edit');;
-Route::apiresource('spacetype', SpaceTypeController::class)->except('create', 'edit');;
-Route::apiresource('zone', ZoneController::class)->except('create', 'edit');;
+Route::apiresource('role', RoleController::class)->except('create', 'edit');
+Route::apiresource('space', SpaceController::class)->except('create', 'edit');
+Route::apiresource('comment', CommentController::class)->except('create', 'edit');
+Route::apiresource('address', AddressController::class)->except('create', 'edit');
+Route::apiresource('image', ImageController::class)->except('create', 'edit');
+Route::apiresource('island', IslandController::class)->except('create', 'edit');
+Route::apiresource('modality', ModalityController::class)->except('create', 'edit');
+Route::apiresource('service', ServiceController::class)->except('create', 'edit');
+Route::apiresource('spacetype', SpaceTypeController::class)->except('create', 'edit');
+Route::apiresource('zone', ZoneController::class)->except('create', 'edit');
