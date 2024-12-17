@@ -37,7 +37,7 @@ class SpaceController extends Controller
      */
     public function show(Space $space)
     {
-        $space->load('address', 'modalities', 'services', 'space_type', 'comments', 'comments.images', 'user');
+        $space->with(['address', 'modalities', 'services', 'space_type', 'comments', 'comments.images', 'user'])->get();
         return response()->json($space);
     }
 
