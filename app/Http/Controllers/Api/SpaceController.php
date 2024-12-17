@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Space;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SpaceResource;
 
 class SpaceController extends Controller
 {
@@ -20,7 +21,7 @@ class SpaceController extends Controller
 
 
         // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
-         $spaces = Space::with(["user", "modalities", "comments", "comments.images", "address"])->paginate(1);  // post amb les taules relacionades, paginada
+         $spaces = Space::with(["user", "modalities", "comments", "comments.images", "address"])->get();  // post amb les taules relacionades, paginada
         return response()->json($spaces);
     }
 
@@ -37,8 +38,9 @@ class SpaceController extends Controller
      */
     public function show(Space $space)
     {
-        $space->with(['address', 'modalities', 'services', 'space_type', 'comments', 'comments.images', 'user'])->get();
-        return response()->json($space);
+        $space->load('address', 'modalities', 'services', 'space_type', 'comments', 'comments.images', 'user', 'address.municipality', 'address.municipality.island');
+        //return response()->json($space);
+        return (new SpaceResource($space))->additional(['meta' => 'Post mostrado correctamente']);
     }
 
     /**
