@@ -19,7 +19,20 @@ class SpaceController extends Controller
                                                                                                     // para ver los datos relacionados
         // $spaces = Space::paginate(3);  // crea una sortida amb paginació
         // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
-        $spaces = Space::with(["address",  "modalities", "services", "space_type", "comments", "comments.images", "user"])->get();  // post amb les taules relacionades, paginada
+        $spaces = Space::with([
+            'address',
+            'modalities',
+            'services',
+            'space_type',
+            'comments' => function ($query) {
+                $query->where('status', 'y'); // Filtrar comentarios con status "y"
+            },
+            'comments.images',
+            'user',
+            'address.zone',
+            'address.municipality',
+            'address.municipality.island', 
+            'user.role'])->get(); 
         return (SpaceResource::collection($spaces));
     }
 
@@ -36,7 +49,20 @@ class SpaceController extends Controller
      */
     public function show(Space $space)
     {
-        $space->load('address', 'modalities', 'services', 'space_type', 'comments', 'comments.images', 'user');
+        $space->load([
+            'address',
+            'modalities',
+            'services',
+            'space_type',
+            'comments' => function ($query) {
+                $query->where('status', 'y'); // Filtrar comentarios con status "y"
+            },
+            'comments.images',
+            'user',
+            'address.zone',
+            'address.municipality',
+            'address.municipality.island', 
+            'user.role']);
         //return response()->json($space);
         return (new SpaceResource($space));
     }

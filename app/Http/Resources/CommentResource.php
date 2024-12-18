@@ -4,11 +4,10 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Resources\ZoneResource;
-use App\Http\Resources\MunicipalityResource;
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddressResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,15 +16,20 @@ class AddressResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        //return parent::toArray($request);
+        // return parent::toArray($request);
 
         return[
             'Identificador' => $this->id,
-            'Domicilio' => $this->name,
+            'Comentario' => $this->comment,
+            'Usuario' => $this->user->name,
+            'Espacio' => $this->space->name,
+            'Puntuación' => $this->score,
+            'Status' => $this->status,
+            'Id de usuario' => $this->user_id,
+            'Id de espacio' => $this->space_id,
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
-            'Zona' => new ZoneResource($this->whenLoaded('zone')),
-            'Municipio' => new MunicipalityResource($this->whenLoaded('municipality')),
+            'Imágenes'=> ImageResource::collection($this->whenLoaded('images')),
 
         ];
     }

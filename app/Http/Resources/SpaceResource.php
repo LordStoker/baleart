@@ -2,8 +2,14 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Resources\AddressResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\ImageResource;
+use App\Http\Resources\CommentResource;
+
+use App\Http\Resources\ServiceResource;
+use App\Http\Resources\ModalityResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SpaceResource extends JsonResource
@@ -30,12 +36,22 @@ class SpaceResource extends JsonResource
             'Acceso para minusválidos' => ($this->accessType === "y" ? "Disponible" : ($this->accessType === "n" ? "No disponible" : "Parcialmente")),
             'Puntuación total' => $this->totalScore,
             'Nº de votaciones' => $this->countScore,
-            'Dirección' => new AddressResource($this->whenLoaded('address')),
-            // 'Tipo de espacio' => $this->space_type->name,
+            'Dirección' => $this->whenLoaded('address', function () {
+                return implode(' - ', array_filter([
+                    $this->address->name ?? null,
+                    $this->address->municipality->name ?? null,
+                    $this->address->zone->name ?? null,
+                    $this->address->municipality->island->name ?? null,
+                ]));
+            }),
+            'Tipo de espacio' => $this->space_type->name,
+            'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
+            'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Usuario Gestor' => new UserResource($this->whenLoaded('user')),
-            'Modalidades' => $this->modalities->pluck('name'),
-            'Fecha de creación' => $this->created_at->format('Y-m-d H:i:s'),
-            'Última actualización' => $this->updated_at->format('Y-m-d H:i:s'),
+            'Modalidades' => ModalityResource::collection($this->whenLoaded('modalities')),
+            'Servicios' => ServiceResource::collection($this->whenLoaded('services')),            
+            'Comentarios' => CommentResource::collection($this->whenLoaded('comments')),
+
         ];
     }
 }
