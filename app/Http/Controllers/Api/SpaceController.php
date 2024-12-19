@@ -33,6 +33,7 @@ class SpaceController extends Controller
             'address.municipality',
             'address.municipality.island', 
             'user.role',
+            'comments.user',
         ]);
             
         if ($request->has('isla')) {
@@ -71,6 +72,7 @@ class SpaceController extends Controller
             'address.municipality',
             'address.municipality.island', 
             'user.role',
+            'comments.user',
         ])->findOrFail($value) : //Buscar por ID
         Space::with([
             'address',
@@ -86,6 +88,7 @@ class SpaceController extends Controller
             'address.municipality',
             'address.municipality.island', 
             'user.role',
+            'comments.user',
         ])->where('regNumber', $value)->firstOrFail(); // Buscar por regNumber
 
     // Retornar el recurso

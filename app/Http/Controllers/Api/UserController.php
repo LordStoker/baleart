@@ -12,12 +12,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index()
-    {
-        //$users = User::all();
-         $users = User::with(['role', 'comments', 'spaces'])->get();
-         return UserResource::collection($users);
-    }
+    //  public function index()
+    // {
+    //       $users = User::all();
+    //      $users = User::with(['role', 'comments', 'spaces'])->get();
+    //      return UserResource::collection($users);
+    // }
 
     /**
      * Store a newly created resource in storage.
