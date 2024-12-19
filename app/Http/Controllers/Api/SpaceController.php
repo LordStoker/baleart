@@ -12,14 +12,14 @@ class SpaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //$spaces = Space::all();
         //$spaces = Space::with(['user', 'comments', 'modalities', 'services', 'address'])->get(); //Se indican las relaciones de la clase que usamos
                                                                                                     // para ver los datos relacionados
         // $spaces = Space::paginate(3);  // crea una sortida amb paginació
         // $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->get();
-        $spaces = Space::with([
+        $query = Space::with([
             'address',
             'modalities',
             'services',
@@ -32,7 +32,15 @@ class SpaceController extends Controller
             'address.zone',
             'address.municipality',
             'address.municipality.island', 
-            'user.role'])->get(); 
+            'user.role',
+        ]);
+            
+        if ($request->has('isla')) {
+            $query->whereHas('address.municipality.island', function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->isla . '%');
+            });
+        }
+            $spaces = $query->get();
         return (SpaceResource::collection($spaces));
     }
 
@@ -44,12 +52,12 @@ class SpaceController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Space $space)
-    {
-        $space->load([
+
+    public function show($value)
+{
+    // Determinar si el valor es un número (para buscar por ID) o no (para regNumber)
+    $space = is_numeric($value)
+        ? Space::with([
             'address',
             'modalities',
             'services',
@@ -62,10 +70,28 @@ class SpaceController extends Controller
             'address.zone',
             'address.municipality',
             'address.municipality.island', 
-            'user.role']);
-        //return response()->json($space);
-        return (new SpaceResource($space));
-    }
+            'user.role',
+        ])->findOrFail($value) // Buscar por ID
+        : Space::with([
+            'address',
+            'modalities',
+            'services',
+            'space_type',
+            'comments' => function ($query) {
+                $query->where('status', 'y'); // Filtrar comentarios con status "y"
+            },
+            'comments.images',
+            'user',
+            'address.zone',
+            'address.municipality',
+            'address.municipality.island', 
+            'user.role',
+        ])->where('regNumber', $value)->firstOrFail(); // Buscar por regNumber
+
+    // Retornar el recurso
+    return new SpaceResource($space);
+}
+
 
     /**
      * Update the specified resource in storage.

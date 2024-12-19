@@ -41,4 +41,8 @@ class Space extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public $hidden = [
+        'id'
+    ];
 }
