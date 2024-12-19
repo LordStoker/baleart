@@ -27,10 +27,10 @@ class UserResource extends JsonResource
             'Apellidos' => $this->last_name,
             'Email' => $this->email,
             'Teléfono' => $this->phone,
-            'Comentarios' => CommentResource::collection($this->whenLoaded('comments')),
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
-            'Rol' => RoleResource::make(Role::find($this->role_id)),
+            'Comentarios' => CommentResource::collection($this->whenLoaded('comments')),
+            'Rol' => new RoleResource($this->load('role')),
         ];
     }
 }

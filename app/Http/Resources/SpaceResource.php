@@ -11,7 +11,6 @@ use App\Http\Resources\CommentResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ModalityResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\User;
 
 class SpaceResource extends JsonResource
 {
@@ -48,7 +47,7 @@ class SpaceResource extends JsonResource
             'Tipo de espacio' => $this->space_type->name,
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
-            'Usuario Gestor' => UserResource::make(User::find($this->user_id)),
+            'Usuario Gestor' => new UserResource($this->whenLoaded('user')),
             'Modalidades' => ModalityResource::collection($this->whenLoaded('modalities')),
             'Servicios' => ServiceResource::collection($this->whenLoaded('services')),            
             'Comentarios' => CommentResource::collection($this->whenLoaded('comments')),

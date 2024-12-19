@@ -22,7 +22,7 @@ class CommentResource extends JsonResource
         return[
             'Identificador' => $this->id,
             'Comentario' => $this->comment,
-            'Autor' => UserResource::make(User::find($this->user_id)),
+            'Autor' => new UserResource($this->whenLoaded('user')),
             'Espacio' => $this->space->name,
             'Puntuación' => $this->score,
             'Status' => $this->status,
