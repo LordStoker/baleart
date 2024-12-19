@@ -12,12 +12,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     //$users = User::all();
-    //     $users = User::with(['role', 'comments', 'spaces'])->get();
-    //     return response()->json($users);
-    // }
+     public function index()
+    {
+        //$users = User::all();
+         $users = User::with(['role', 'comments', 'spaces'])->get();
+         return UserResource::collection($users);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,11 +30,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($value)
     {
 
         // return response()->json($user);
-        $user = User::with(['spaces', 'comments', 'comments.images'])->get();
+        $user = is_numeric($value) ?
+        User::with(['spaces', 'comments', 'comments.images',])->findOrFail($value) :
+        User::with(['spaces', 'comments', 'comments.images'])->where('email', $value)->firstOrFail();
         return new UserResource($user);
     }
 

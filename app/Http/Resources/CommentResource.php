@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,12 +22,10 @@ class CommentResource extends JsonResource
         return[
             'Identificador' => $this->id,
             'Comentario' => $this->comment,
-            'Usuario' => $this->user->name,
+            'Autor' => UserResource::make(User::find($this->user_id)),
             'Espacio' => $this->space->name,
             'Puntuación' => $this->score,
             'Status' => $this->status,
-            'Id de usuario' => $this->user_id,
-            'Id de espacio' => $this->space_id,
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Imágenes'=> ImageResource::collection($this->whenLoaded('images')),

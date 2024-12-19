@@ -56,8 +56,8 @@ class SpaceController extends Controller
     public function show($value)
 {
     // Determinar si el valor es un número (para buscar por ID) o no (para regNumber)
-    $space = is_numeric($value)
-        ? Space::with([
+    $space = is_numeric($value)?
+        Space::with([
             'address',
             'modalities',
             'services',
@@ -71,8 +71,8 @@ class SpaceController extends Controller
             'address.municipality',
             'address.municipality.island', 
             'user.role',
-        ])->findOrFail($value) // Buscar por ID
-        : Space::with([
+        ])->findOrFail($value) : //Buscar por ID
+        Space::with([
             'address',
             'modalities',
             'services',

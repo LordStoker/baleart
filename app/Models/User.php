@@ -21,21 +21,21 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    public $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // public $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    public $hidden = [
-        'password',
-        'remember_token',
-    ];
+    // public $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
 
     /**
      * Get the attributes that should be cast.

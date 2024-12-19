@@ -3,8 +3,11 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use App\Models\Role;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Resources\RoleResource;
+use App\Http\Resources\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -24,10 +27,10 @@ class UserResource extends JsonResource
             'Apellidos' => $this->last_name,
             'Email' => $this->email,
             'Teléfono' => $this->phone,
+            'Comentarios' => CommentResource::collection($this->whenLoaded('comments')),
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
-            'Rol' => $this->role->name,
-
+            'Rol' => RoleResource::make(Role::find($this->role_id)),
         ];
     }
 }
