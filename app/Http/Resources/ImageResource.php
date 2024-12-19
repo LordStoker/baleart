@@ -20,7 +20,7 @@ class ImageResource extends JsonResource
         return[
             'Identificador' => $this->id,
             'url' => $this->url,
-            'comment_id' => $this->comment_id,
+            'Identificador del comentario' => $this->comment_id,
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
         ];
