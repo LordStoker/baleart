@@ -26,7 +26,7 @@ class UserResource extends JsonResource
             'Teléfono' => $this->phone,
             'Fecha de creación' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
             'Última actualización' => Carbon::parse($this->created_at)->format("d-m-Y h:m:s"),
-            'Rol' => new RoleResource($this->load('role')),
+            'Rol' => $this->role->name,
 
         ];
     }

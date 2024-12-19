@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //$users = User::all();
-        $users = User::with(['role', 'comments', 'spaces'])->get();
-        return response()->json($users);
-    }
+    // public function index()
+    // {
+    //     //$users = User::all();
+    //     $users = User::with(['role', 'comments', 'spaces'])->get();
+    //     return response()->json($users);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -31,7 +32,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json($user);
+
+        // return response()->json($user);
+        $user = User::with(['spaces', 'comments', 'comments.images'])->get();
+        return new UserResource($user);
     }
 
     /**
