@@ -36,8 +36,8 @@ class UserController extends Controller
 
         // return response()->json($user);
         $user = is_numeric($value) ?
-        User::with(['spaces', 'comments', 'comments.images',])->findOrFail($value) :
-        User::with(['spaces', 'comments', 'comments.images'])->where('email', $value)->firstOrFail();
+        User::with(['spaces', 'comments', 'comments.images', 'role'])->findOrFail($value) :
+        User::with(['spaces', 'comments', 'comments.images', 'role'])->where('email', $value)->firstOrFail();
         return new UserResource($user);
     }
 
@@ -46,8 +46,8 @@ class UserController extends Controller
      */
     public function update(GuardarUserRequest $request, User $user)
     {
-        $user->update($request->validated->all());
-        return (new UserResource($user))->response()->setStatusCode(201);
+        $user->update($request->validated());
+        return (new UserResource($user));
     }
 
     /**

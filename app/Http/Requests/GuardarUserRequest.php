@@ -22,12 +22,11 @@ class GuardarUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users,email|max:100',
-            'phone' => 'required|string|max:100',
-            'password' => 'required|string|max:100',
-            'role_id' => 'required|integer|exists:roles,id',
+            'name' => 'sometimes|string|max:100',
+            'last_name' => 'sometimes|string|max:100',
+            'email' => 'sometimes|email|unique:users,email|max:100',
+            'phone' => 'sometimes|string|max:100',
+            'password' => 'sometimes|string|max:100',
         ];
     }
 
@@ -50,9 +49,6 @@ class GuardarUserRequest extends FormRequest
             'password.required' => 'El campo contraseña es obligatorio',
             'password.string' => 'El campo contraseña debe ser un texto',
             'password.max' => 'El campo contraseña no puede tener más de 100 caracteres',
-            'role_id.required' => 'El campo rol es obligatorio',
-            'role_id.integer' => 'El campo rol debe ser un número entero',
-            'role_id.exists' => 'El campo rol no existe',
         ];
     }
 }
