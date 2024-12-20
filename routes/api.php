@@ -21,6 +21,7 @@ Route::get('/user', function (Request $request) {
 
 //El except va implícito en el apiresource, pero así lo dejamos clarificado en el código
 Route::apiresource('user', UserController::class);
+Route::put('user/{user}', [UserController::class, 'update']);
 // Route::apiresource('role', RoleController::class);
 Route::apiresource('space', SpaceController::class);
 //Route::apiresource('comment', CommentController::class);
