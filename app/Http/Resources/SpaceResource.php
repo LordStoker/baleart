@@ -34,7 +34,7 @@ class SpaceResource extends JsonResource
             'Teléfono' => $this->phone,
             'Web' => $this->website,
             'Acceso para minusválidos' => ($this->accessType === "y" ? "Disponible" : ($this->accessType === "n" ? "No disponible" : "Parcialmente")),
-            'Puntuación total' => $this->totalScore,
+            'Puntuación total' => $this->countScore > 0 ? round($this->totalScore / $this->countScore, 2) : 0,
             'Nº de votaciones' => $this->countScore,
             'Dirección' => $this->whenLoaded('address', function () {
                 return implode(' - ', array_filter([

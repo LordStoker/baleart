@@ -27,10 +27,12 @@ return new class extends Migration
             AFTER INSERT ON comments
             FOR EACH ROW
             BEGIN
-                UPDATE spaces
-                SET totalScore = totalScore + IFNULL(NEW.score, 0),
-                    countScore = countScore + 1
-                WHERE id = NEW.space_id;
+                IF NEW.STATUS = "Y" THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore + IFNULL(NEW.score, 0),
+                        countScore = countScore + 1
+                    WHERE id = NEW.space_id;
+                END IF;
             END;
     ');
 
@@ -39,9 +41,19 @@ return new class extends Migration
             AFTER UPDATE ON comments
             FOR EACH ROW
             BEGIN
-                UPDATE spaces
-                SET totalScore = totalScore + IFNULL(NEW.score, 0) - IFNULL(OLD.score, 0)
-                WHERE id = NEW.space_id;
+                IF NEW.STATUS = "N" THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore - IFNULL(OLD.score, 0),
+                        countScore = countScore - 1
+                    WHERE id = OLD.space_id;
+                END IF;
+
+                IF NEW.STATUS = "Y" THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore + IFNULL(NEW.score, 0),
+                        countScore = countScore + 1
+                    WHERE id = NEW.space_id;
+                END IF;
             END;
         ');
 
@@ -50,10 +62,12 @@ return new class extends Migration
             AFTER DELETE ON comments
             FOR EACH ROW
             BEGIN
-                UPDATE spaces
-                SET totalScore = totalScore - IFNULL(OLD.score, 0),
-                    countScore = countScore - 1
-                WHERE id = OLD.space_id;
+                IF OLD.STATUS = "Y" THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore - IFNULL(OLD.score, 0),
+                        countScore = countScore - 1
+                    WHERE id = OLD.space_id;
+                END IF;
             END;
         ');
 

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('website', 100);
             $table->enum('accessType', ['y', 'n', 'p']);
             $table->decimal('totalScore', 4, 2);
-            $table->decimal('countScore', 4, 2);
+            $table->integer('countScore');
             $table->foreignId('address_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('space_type_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('restrict'); 
