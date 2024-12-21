@@ -44,8 +44,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GuardarUserRequest $request, User $user)
+    public function update(GuardarUserRequest $request, $value)
     {
+        $user = is_numeric($value) ?
+        User::findOrFail($value) :
+        User::where('email', $value)->firstOrFail();
+
         $user->update($request->validated());
         return (new UserResource($user));
     }
@@ -53,8 +57,20 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        if ($user->role_id !== 3) {
+            return response()->json(['error' => 'No se puede eliminar un usuario que no sea visitante.'], 403);
+        }
+
+        foreach ($user->comments as $comment) {
+            foreach ($comment->images as $image) {
+                $image->delete();
+            }
+            $comment->delete();
+        }        
+
+        $user->delete();
+        return new UserResource($user);
     }
 }

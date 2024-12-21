@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GuardarUserRequest extends FormRequest
@@ -21,10 +23,21 @@ class GuardarUserRequest extends FormRequest
      */
     public function rules(): array
     {
+            
+        $userId = $this->route('value') && is_numeric($this->route('value'))
+        ? $this->route('value') 
+        : User::where('email', $this->route('value'))->firstOrFail(); 
+        //$userId = $this->route('user')->id;
+
         return [
             'name' => 'sometimes|string|max:100',
             'last_name' => 'sometimes|string|max:100',
-            'email' => 'sometimes|email|unique:users,email|max:100',
+            'email' => [
+                'sometimes',
+                'email',
+                'max:100',
+                Rule::unique('users')->ignore($userId) // Ignoramos el email del usuario actual
+            ], //Rule::unique('users', 'email')->ignore($user?->id),
             'phone' => 'sometimes|string|max:100',
             'password' => 'sometimes|string|max:100',
         ];

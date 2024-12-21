@@ -19,8 +19,13 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-//El except va implícito en el apiresource, pero así lo dejamos clarificado en el código
-Route::apiresource('user', UserController::class);
+
+//Route::apiresource('user', UserController::class);
+Route::put('user/{value}', [UserController::class, 'update']);
+Route::get('/user', [UserController::class, 'index']); 
+Route::get('/user/{user}', [UserController::class, 'show']); 
+Route::post('/user', [UserController::class, 'store']);
+Route::delete('/user/{user}', [UserController::class, 'destroy']); 
 //Route::put('user/{user}', [UserController::class, 'update']);
 // Route::apiresource('role', RoleController::class);
 Route::apiresource('space', SpaceController::class);

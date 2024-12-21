@@ -99,6 +99,8 @@ class SpaceController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+     // TO DO
     public function update(Request $request, string $id)
     {
         $space = Space::where('email', $request->input('email'))->firstOrFail();
