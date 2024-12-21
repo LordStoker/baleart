@@ -57,8 +57,17 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($value)
     {
+
+        $user = is_numeric($value) ?
+        User::findOrFail($value) :
+        User::where('email', $value)->firstOrFail();
+
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
         if ($user->role_id !== 3) {
             return response()->json(['error' => 'No se puede eliminar un usuario que no sea visitante.'], 403);
         }
