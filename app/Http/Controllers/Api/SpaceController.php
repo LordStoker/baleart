@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use auth;
 use App\Models\Space;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SpaceResource;
+use App\Http\Resources\CommentResource;
+use App\Http\Requests\GuardarSpaceRequest;
 
 class SpaceController extends Controller
 {
@@ -48,9 +51,30 @@ class SpaceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeComment(GuardarSpaceRequest $request, $value)
     {
-        //
+        $space = is_numeric($value) ?
+        Space::findOrFail($value) :
+        Space::where('regNumber', $value)->firstOrFail();
+
+        $comment = $space->comments()->create([
+            'comment' => $request->comment,
+            'score' => $request->score,
+            'status' => 'n',
+            'user_id' => auth()->id(),
+        ]);
+
+
+        $images = $request->input('images', []);
+        foreach($images as $image) {
+            $comment->images()->create([
+                'url' => $image,
+            ]);
+        }
+
+        $comment->load(['user', 'images']);
+
+        return new CommentResource($comment);
     }
 
 
@@ -100,13 +124,11 @@ class SpaceController extends Controller
      * Update the specified resource in storage.
      */
 
-     // TO DO
-    public function update(Request $request, string $id)
-    {
-        $space = Space::where('email', $request->input('email'))->firstOrFail();
-        $space->update($request->all());
-        return response()->json($space);
-    }
+     
+    // public function update(Request $request, string $id)
+    // {
+
+    // }
 
     /**
      * Remove the specified resource from storage.

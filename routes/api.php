@@ -26,6 +26,7 @@ Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/{user}', [UserController::class, 'show']); 
 Route::post('/user', [UserController::class, 'store']);
 Route::delete('/user/{user}', [UserController::class, 'destroy']); 
+Route::post('space/{space}/comment', [SpaceController::class, 'storeComment']);
 //Route::put('user/{user}', [UserController::class, 'update']);
 // Route::apiresource('role', RoleController::class);
 Route::apiresource('space', SpaceController::class);

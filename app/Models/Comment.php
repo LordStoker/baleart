@@ -9,6 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+
+
+    public $fillable = [
+        'comment',
+        'score',
+        'status',
+        'user_id',
+    ];
+
     public function images(){
         return $this->hasMany(Image::class);
     }

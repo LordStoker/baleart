@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Image extends Model
 {
     use HasFactory;
+
+
+    public $fillable = [
+        'url',
+    ];
     public function comment(){
         return $this->belongsTo(Comment::class);
     }
