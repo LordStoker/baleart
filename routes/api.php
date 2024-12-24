@@ -29,20 +29,21 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', [UserController::class, 'index']); 
     Route::get('/user/{user}', [UserController::class, 'show']); 
     Route::post('/user', [UserController::class, 'store']);
-    Route::delete('/user/{user}', [UserController::class, 'destroy']); 
+    Route::delete('/user/{user}', [UserController::class, 'destroy']);
+    Route::post('space/{space}/comment', [SpaceController::class, 'storeComment']);
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+
+    Route::apiresource('space', SpaceController::class); 
 });
 //Route::apiresource('user', UserController::class);
-Route::put('user/{value}', [UserController::class, 'update']);
-Route::get('/user', [UserController::class, 'index']); 
-Route::get('/user/{user}', [UserController::class, 'show']); 
-Route::post('/user', [UserController::class, 'store']);
-Route::delete('/user/{user}', [UserController::class, 'destroy']); 
-Route::post('space/{space}/comment', [SpaceController::class, 'storeComment']);
-Route::post('/register', [RegisteredUserController::class, 'store']);
+
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+
+
 //Route::put('user/{user}', [UserController::class, 'update']);
 // Route::apiresource('role', RoleController::class);
-Route::apiresource('space', SpaceController::class);
+
 //Route::apiresource('comment', CommentController::class);
 //Route::apiresource('address', AddressController::class);
 // Route::apiresource('image', ImageController::class);
