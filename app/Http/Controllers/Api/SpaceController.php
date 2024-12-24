@@ -61,7 +61,7 @@ class SpaceController extends Controller
             'comment' => $request->comment,
             'score' => $request->score,
             'status' => 'n',
-            'user_id' => auth()->id(),
+            'user_id' => $request->user_id,
         ]);
 
 
