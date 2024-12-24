@@ -12,6 +12,8 @@ class AuthenticatedSessionController extends Controller
 {
     public function store(Request $request)
     {
+        
+
         $request->validate([
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
@@ -28,7 +30,7 @@ class AuthenticatedSessionController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
-            'status' => 'Login OK successful',
+            'status' => 'Autenticación con éxito',
         ]);
     }
 

@@ -31,13 +31,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/user', [UserController::class, 'store']);
     Route::delete('/user/{user}', [UserController::class, 'destroy']);
     Route::post('space/{space}/comment', [SpaceController::class, 'storeComment']);
-    Route::post('/register', [RegisteredUserController::class, 'store']);
-
     Route::apiresource('space', SpaceController::class); 
 });
 //Route::apiresource('user', UserController::class);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
 
