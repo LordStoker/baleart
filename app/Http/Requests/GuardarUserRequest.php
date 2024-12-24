@@ -30,16 +30,16 @@ class GuardarUserRequest extends FormRequest
         //$userId = $this->route('user')->id;
 
         return [
-            'name' => 'sometimes|string|max:100',
-            'last_name' => 'sometimes|string|max:100',
+            'name' => 'require|string|max:100',
+            'last_name' => 'require|string|max:100',
             'email' => [
-                'sometimes',
+                'require',
                 'email',
                 'max:100',
-                Rule::unique('users')->ignore($userId) // Ignoramos el email del usuario actual
+                Rule::unique('users')->ignore($userId) // Ignoramos el email del usuario actual, en caso de que al modificar el usuario no se cambie el email(User retard experience)
             ], //Rule::unique('users', 'email')->ignore($user?->id),
-            'phone' => 'sometimes|string|max:100',
-            'password' => 'sometimes|string|min:6|max:100',
+            'phone' => 'require|string|max:100',
+            'password' => 'require|string|min:6|max:100',
         ];
     }
 
