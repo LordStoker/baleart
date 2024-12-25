@@ -22,11 +22,10 @@ class GuardarSpaceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comment' => 'require|string|max:2000',
-            'score' => 'require|integer|min:1|max:5',
-            'status' => 'require|string|max:1|in:y,n',
-            'user_id' => 'require|integer',
-            'url' => 'require|string|max:100',
+            'comment' => 'required|string|max:2000',
+            'score' => 'required|integer|min:1|max:5',
+            'images' => 'sometimes|array',
+            'images.*' => 'sometimes|string|max:100'
         ];
     }
 }

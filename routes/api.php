@@ -25,15 +25,17 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-    Route::put('user/{value}', [UserController::class, 'update']);
-    Route::get('/user', [UserController::class, 'index']); 
+    Route::put('/user/{value}', [UserController::class, 'update']);
+    // Route::get('/user', [UserController::class, 'index']); 
     Route::get('/user/{user}', [UserController::class, 'show']); 
     Route::post('/user', [UserController::class, 'store']);
     Route::delete('/user/{user}', [UserController::class, 'destroy']);
-    Route::post('space/{space}/comment', [SpaceController::class, 'storeComment']);
+    Route::post('/space/{space}/comment', [SpaceController::class, 'storeComment']);
     Route::apiresource('space', SpaceController::class); 
 });
 //Route::apiresource('user', UserController::class);
+
+
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/register', [RegisteredUserController::class, 'store']);

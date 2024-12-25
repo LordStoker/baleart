@@ -26,20 +26,20 @@ class GuardarUserRequest extends FormRequest
             
         $userId = $this->route('value') && is_numeric($this->route('value'))
         ? $this->route('value') 
-        : optional(User::where('email', $this->route('value'))->firstOrFail()); 
+        : (User::where('email', $this->route('value'))->firstOrFail()); 
         //$userId = $this->route('user')->id;
 
         return [
-            'name' => 'require|string|max:100',
-            'last_name' => 'require|string|max:100',
+            'name' => 'required|string|max:100',
+            'last_name' => 'required|string|max:100',
             'email' => [
-                'require',
+                'required',
                 'email',
                 'max:100',
                 Rule::unique('users')->ignore($userId) // Ignoramos el email del usuario actual, en caso de que al modificar el usuario no se cambie el email(User retard experience)
             ], //Rule::unique('users', 'email')->ignore($user?->id),
-            'phone' => 'require|string|max:100',
-            'password' => 'require|string|min:6|max:100',
+            'phone' => 'required|string|max:100',
+            'password' => 'required|string|min:6|max:100',
         ];
     }
 
